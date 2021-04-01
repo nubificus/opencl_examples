@@ -17,7 +17,8 @@
 #include <CL/cl.hpp>
 #include <iostream>
 
-int main(){
+//int main(){
+extern "C" int vector_add(){
 	try{
 
 		//get all platforms (drivers)
