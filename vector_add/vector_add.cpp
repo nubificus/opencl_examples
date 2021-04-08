@@ -19,8 +19,24 @@
 
 //int main(){
 //extern "C" int vector_add(){
-extern "C" int vector_add (int* A, int* B, int* C, int dimension){
+//extern "C" int vector_add (int* A, int* B, int* C, int dimension){
+
+struct vector_arg {
+	uint32_t len;
+	uint8_t *buf;
+};
+
+extern "C" int vector_add (void*out_args, size_t out_nargs, void* in_args, size_t in_nargs){
 	try{
+		/* unpack arguments */
+		struct vector_arg *in_arg = (struct vector_arg*)in_args;
+		struct vector_arg *out_arg = (struct vector_arg*) out_args;
+
+		int dimension = *(int*)out_arg[2].buf;
+		int *A = (int*)out_arg[0].buf;
+		int *B = (int*)out_arg[1].buf;
+		int *C = (int*)in_arg[0].buf;
+
 		//get all platforms (drivers)
 		std::vector<cl::Platform> all_platforms;
 		cl::Platform::get(&all_platforms);
